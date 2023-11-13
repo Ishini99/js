@@ -40,6 +40,25 @@
         </div>
     </div>
 </div>
+<script>
+    const apikey ="7144c915d1c92a1de2a6dc5e978e7efb";
+    const apiurl ="https://api.openweathermap.org/data/2.5/weather?units=metric&q=bangalore";
+
+    async function checkWeather (){
+        const response = await fetch (apiurl + '&appid=${apikey}');
+        var data = await response.json();
+        console.log(data);
+    }
+
+    checkWeather ();
+</script>
+
+
 </body>
 
 </html>
+
+
+
+<!-- https://api.openweathermap.org/data/2.5/weather?q=germany&appid=7144c915d1c92a1de2a6dc5e978e7efb -->
+<!-- https://api.openweathermap.org/data/2.5/weather?q=germany&appid=7144c915d1c92a1de2a6dc5e978e7efbunits=metric -->
