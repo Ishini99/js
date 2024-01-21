@@ -2,42 +2,42 @@ const questions  = [
     {
     question : "20 + 20 - 10 + 80 + 40 - 10" , 
     answers:[
-        {Text :"140", correct :true},
-        {Text :"120", correct :false},
-        {Text :"160", correct :false},
-        {Text :"110", correct :false},
+        {text :"140", correct :true},
+        {text :"120", correct :false},
+        {text :"160", correct :false},
+        {text :"110", correct :false},
     ]
 },
 {
     question : "10 + 30 + 50 + 80 + 40 - 100" , 
     answers:[
-        {Text :"140", correct :false},
-        {Text :"120", correct :false},
-        {Text :"160", correct :false},
-        {Text :"110", correct :true},
+        {text :"140", correct :false},
+        {text :"120", correct :false},
+        {text :"160", correct :false},
+        {text :"110", correct :true},
     ]
 },
 {
     question : "30 + 20 - 200 + 80 + 50 + 100" , 
     answers:[
-        {Text :"80", correct :true},
-        {Text :"120", correct :false},
-        {Text :"160", correct :false},
-        {Text :"110", correct :false},
+        {text :"80", correct :true},
+        {text :"120", correct :false},
+        {text :"160", correct :false},
+        {text :"110", correct :false},
     ]
 },
 {
     question : "200 + 200 - 100 + 800 " , 
     answers:[
-        {Text :"1100", correct :true},
-        {Text :"1200", correct :false},
-        {Text :"1600", correct :false},
-        {Text :"1100", correct :false},
+        {text :"1100", correct :true},
+        {text :"1200", correct :false},
+        {text :"1600", correct :false},
+        {text :"1100", correct :false},
     ]
 },
 ];
 const questionElement = document.getElementById("question");
-const answerButton = document.getElementById("answer-button");
+const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
 
 let currentQuestionIndex = 0;
@@ -55,11 +55,28 @@ function showQuestion(){
     resetState();
     let currentQuestion = questions[currentQuestionIndex];
     let questionNo = currentQuestionIndex +1;
-    questionElement.innerHTML = questionNo + ","+currentQuestion.question;
+    questionElement.innerHTML = questionNo + "."+currentQuestion.question;
 
     currentQuestion.answers.forEach(answer => {
         const button = document.createElement("button");
+        button.innerHTML = answer.text;
         button.classList.add("btn");
-        answerButton.appendChild(button);
-    })
+        answerButtons.appendChild(button);
+        if(answer.correct){
+            button.dataset.correct = answer.correct;
+        }
+        button.addEventListener("click" , selectAnswer);
+    });
 }
+function resetState()
+{
+nextButton.style.display = "none";
+while(answerButtons.firstChild){
+    answerButtons.removeChild(answerButtons.firstChild)
+}
+}
+function selectAnswer(e){
+    
+}
+
+startQuiz();
