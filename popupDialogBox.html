@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Make Popup Dialog</title>
+    <style>
+        .popup {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.253);
+            top: 0;
+            left: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: all 1s ease-in-out;
+        }
+
+        .popup div {
+            background-color: beige;
+            border: 2px solid gray;
+            border-radius: 10px;
+            padding: 25px;
+        }
+
+        .popup input {
+            font-size: 20px;
+            padding: 5px;
+            margin-top: 10px;
+            transition: all 1s ease-in-out;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes shake {
+            0% {
+                transform: translateX(0);
+            }
+
+            25% {
+                transform: translateX(10px);
+            }
+
+            50% {
+                transform: translateX(-10px);
+            }
+
+            75% {
+                transform: translateX(10px);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h2>
+        My user Interface
+    </h2>
+    <p>Name : <span id="nameOutput"></span></p>
+    <p>Age : <span id="ageOutput"></span></p>
+    <button id="myBtn">Click Me</button>
+
+    <div class="popup hidden" id="namePopup">
+        <div>
+            <h2>
+                What is your name?
+            </h2>
+            <input type="text" id="nameInput" placeholder="Your name">
+            <br>
+            <input type="number" name="ageInput" id="ageInput" placeholder="Your Age">
+            <hr>
+            <button onclick="takeName()">OK</button>
+            <button onclick="cancelNamePopup()">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        const myBtn = document.getElementById('myBtn');
+        const namePopup = document.getElementById("namePopup");
+        const nameInput = document.getElementById("nameInput");
+
+
+        myBtn.onclick = () => {
+            // let name = prompt("What is your name?")
+            namePopup.classList.remove('hidden');
+            /*
+            let opacity = 0;
+            let timer = setInterval(() => {
+                opacity = opacity + 10;
+                namePopup.style.opacity = opacity + '%';
+                if (opacity >= 100) {
+                    clearInterval(timer)
+                }
+            }, 100);
+            */
+            setTimeout(() => {
+                namePopup.style.opacity = '100%';
+            }, 100)
+        }
+
+        function cancelNamePopup() {
+            /*
+            let opacity = 100;
+            let timer = setInterval(() => {
+                opacity = opacity - 10;
+                namePopup.style.opacity = opacity + '%';
+                if (opacity == 0) {
+                    clearInterval(timer);
+                    namePopup.classList.add('hidden');
+                    nameInput.value = "";
+                    document.getElementById("ageInput").value = "";
+                }
+            }, 100);
+            */
+            namePopup.style.opacity = '0%';
+            setTimeout(() => {
+                namePopup.classList.add('hidden');
+            }, 1000)
+
+
+        }
+
+        function takeName() {
+            let name = nameInput.value;
+            let age = document.getElementById("ageInput").value;
+
+            if (name == "" || age == '') {
+                nameInput.style.animation = "shake 1s ease-in-out";
+                ageInput.style.animation = "shake 1s ease-in-out";
+                setTimeout(() => {
+                    nameInput.style.animation = "";
+                    ageInput.style.animation = "";
+
+                }, 1000)
+                return;
+            }
+
+
+            document.getElementById("nameOutput").textContent = name;
+            document.getElementById("ageOutput").textContent = age;
+            cancelNamePopup();
+        }
+    </script>
+
+</body>
+
+</html>
